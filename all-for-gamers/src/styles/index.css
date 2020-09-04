@@ -1,0 +1,15 @@
+@import url("./header.css");
+@import url("./nav.css");
+@import url("./form.css");
+
+
+
+body {
+  background: RGB(255, 230, 185);
+}
+
+main {
+  width: 100%;
+  min-height: 100vh;
+  background: black;
+}
