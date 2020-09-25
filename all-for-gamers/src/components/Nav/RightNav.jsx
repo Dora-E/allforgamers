@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-
+import Signout from "../pages/Signout";
+import ButtonDashboard from "./ButtonDashboard";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import AuthContext from "../auth/AuthContext";
+// import { ProtectedRoute } from "./components/auth/ProtectedRoute";
+// import Dashboard from "./components/pages/Dashboard";
 const Ul = styled.ul`
   list-style: none;
   display: flex;
@@ -9,7 +15,7 @@ const Ul = styled.ul`
   li {
     padding: 18px 10px;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 1068px) {
     flex-flow: column nowrap;
     background-color: RGB(255, 230, 185);
     position: fixed;
@@ -27,48 +33,52 @@ const Ul = styled.ul`
 `;
 
 const RightNav = ({ open }) => {
+  const AuthContextValue = useContext(AuthContext);
   return (
     <Ul open={open}>
       <li>
-        <NavLink
-          exact
-          to="/"
-          style={{ textDecoration: "none", color: "black" }}
-        >
+        <NavLink className="navLi" exact to="/">
           {" "}
           Home{" "}
         </NavLink>
       </li>
       <li>
-        <NavLink to="/2020" style={{ textDecoration: "none", color: "black" }}>
+        <NavLink className="navLi" to="/2020">
           {" "}
           2020{" "}
         </NavLink>
       </li>
       <li>
-        <NavLink to="/2021" style={{ textDecoration: "none", color: "black" }}>
+        <NavLink className="navLi" to="/2021">
           {" "}
           2021{" "}
         </NavLink>
       </li>
       <li>
-        <NavLink
-          to="/profile"
-          style={{ textDecoration: "none", color: "black" }}
-        >
+        {AuthContextValue.isSignedIn && (
+          <NavLink className="navLi" to="/profile">
+            {" "}
+            Profile{" "}
+          </NavLink>
+        )}
+      </li>
+
+      <li>{AuthContextValue.isAdmin && <ButtonDashboard />}</li>
+      <li>
+        {" "}
+        <NavLink className="navLi" to="/signup">
           {" "}
-          Profile{" "}
+          Inscription{" "}
         </NavLink>
       </li>
       <li>
-        <NavLink
-          to="/contact"
-          style={{ textDecoration: "none", color: "black" }}
-        >
+        {" "}
+        <NavLink className="navLi" to="/login">
           {" "}
-          Contact{" "}
+          <FontAwesomeIcon icon={faUser} />{" "}
         </NavLink>
       </li>
+      <li>{AuthContextValue.isSignedIn && <Signout />}</li>
     </Ul>
   );
 };

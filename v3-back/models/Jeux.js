@@ -8,7 +8,7 @@ const gameSchema = new Schema({
         type: Date,
         default: null,
     },
-
+    description: String,
     video: String,
     images: [{
         type: String,

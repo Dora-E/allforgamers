@@ -1,21 +1,13 @@
 const router = new require("express").Router();
 const UserModel = require('../models/Users');
-// const uploader = require("./../config/cloudinary");
+const uploader = require("./../config/cloudinary");
+const protectRoute = require("./../middlewares/protectPrivateRoute");
 
 const bcrypt = require("bcrypt");
+const auth = require("./../auth");
 
 
-/* GET users listing. */
-/*
-router.get("/", async (req, res, next) => {
-  try {
-    const users = await UserModel.find()
-    res.json(users);
-  } catch (err) {
-    next(err)
-  }
-})
-*/
+
 router.get("/", async (req, res, next) => {
   try {
     const getFav = await UserModel.find().populate("favoris");
@@ -36,6 +28,11 @@ router.get("/:id", async (req, res, next) => {
     next(err)
   }
 });
+router.get("/profile", protectRoute, (req, res) => {
+  res.render("profile", {
+    js: ["form-create-address"]
+  });
+});
 
 // router.get("/:id", async (req, res, next) => {
 //   try {
@@ -48,7 +45,7 @@ router.get("/:id", async (req, res, next) => {
 
 // })
 
-router.post("/", async (req, res, next) => {
+router.post("/signup", async (req, res, next) => {
 
   try {
     const newUser = await UserModel.create(req.body); //req.body contient les infos postées
@@ -57,17 +54,10 @@ router.post("/", async (req, res, next) => {
   } catch (err) {
     next(err)
   }
-
-
 });
 
-// router.post("/profile/edit/password/:id", (req, res, next) => {
-//   const updatePasswords = req.body;
-//   if (!updatePasswords.oldPassword || !updatePasswords.newPassword)
 
-// })
-
-router.patch("/:id", async (req, res, next) => {
+router.patch("/:id", auth.authenticate, async (req, res, next) => {
   try {
     const updateUser = await UserModel.findByIdAndUpdate(
       req.params.id,

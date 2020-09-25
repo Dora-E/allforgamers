@@ -1,13 +1,9 @@
 header {
-
+    width: 100%;
     justify-content: space-between;
     align-items: center;
     min-width: 8vw;
     display: flex;
-
-
-
-
 }
 
 
@@ -18,7 +14,7 @@ figure>img {
 }
 
 .logo {
-    max-width: 50%;
+
     width: 200px;
     height: 100%;
 }

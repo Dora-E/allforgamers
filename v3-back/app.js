@@ -5,12 +5,13 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-
+const session = require("express-session");
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const gamesRouter = require('./routes/games');
 const commentairesRouter = require('./routes/commentaires');
-
+const MongoStore = require("connect-mongo")(session);
+const mongoose = require("mongoose");
 const app = express();
 var cors = require('cors')
 
@@ -28,14 +29,32 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    cookie: {
+      maxAge: 60000
+    }, // in millisec
+    store: new MongoStore({
+      mongooseConnection: mongoose.connection,
+      ttl: 24 * 60 * 60, // 1 day
+    }),
+    saveUninitialized: true,
+    resave: false,
+  })
+);
+
+// app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/games', gamesRouter);
+app.use('/', require("./routes/auth"));
 app.use('/commentaires', commentairesRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
 });
+
+
 
 // error handler
 app.use(function (err, req, res, next) {

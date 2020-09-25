@@ -1,0 +1,12 @@
+[0914/173110.901:ERROR:scoped_process_suspend.cc(31)] NtSuspendProcess: Tentative d’accès à un processus en cours d’arrêt. (0xc000010a)
+[0914/173110.906:ERROR:process_info.cc(118)] ReadProcessMemory bool __cdecl crashpad::(anonymous namespace)::ReadStruct(HANDLE, crashpad::WinVMAddress, T *) [T = crashpad::process_types::PEB<crashpad::process_types::internal::Traits64>]: Seule une partie d’une requête ReadProcessMemory ou WriteProcessMemory a été effectuée. (0x12B)
+[0914/173110.907:ERROR:process_info.cc(551)] ReadProcessData failed
+[0914/173110.926:ERROR:process_reader_win.cc(151)] SuspendThread: Accès refusé. (0x5)
+[0914/173110.926:ERROR:process_reader_win.cc(123)] NtOpenThread: {Accès refusé} Un processus a demandé l’accès a un objet, mais il ne bénéficie pas des autorisations nécessaires. (0xc0000022)
+[0914/173110.927:ERROR:process_reader_win.cc(151)] SuspendThread: Accès refusé. (0x5)
+[0914/173110.927:ERROR:exception_snapshot_win.cc(99)] thread ID 19260 not found in process
+[0914/173110.927:ERROR:process_reader_win.cc(123)] NtOpenThread: {Accès refusé} Un processus a demandé l’accès a un objet, mais il ne bénéficie pas des autorisations nécessaires. (0xc0000022)
+[0914/173110.927:ERROR:exception_snapshot_win.cc(99)] thread ID 3164 not found in process
+[0914/173110.936:ERROR:process_reader_win.cc(123)] NtOpenThread: {Accès refusé} Un processus a demandé l’accès a un objet, mais il ne bénéficie pas des autorisations nécessaires. (0xc0000022)
+[0914/173110.937:ERROR:exception_snapshot_win.cc(99)] thread ID 19576 not found in process
+[0914/173110.937:ERROR:scoped_process_suspend.cc(40)] NtResumeProcess: Tentative d’accès à un processus en cours d’arrêt. (0xc000010a)
