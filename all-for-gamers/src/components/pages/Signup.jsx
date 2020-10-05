@@ -12,12 +12,45 @@ export default class Signup extends Component {
     last_name: "dupont",
     email: "marcel.dupont@gmail.com",
     password: "123456",
+    avatar: null,
+    selectedFile: null,
   };
   // la classe Signup est désormais 'abonnée' au AuthProvider, il consome les infos du provider
   static contextType = AuthContext;
+
   fileInput = React.createRef();
   // on créé une référence ici, utilisée sur le l'input file plus bas
   // https://fr.reactjs.org/docs/uncontrolled-components.html#the-file-input-tag
+  fileChangedHandler = (event) => {
+    this.setState({
+      selectedFile: event.target.files[0],
+    });
+    let reader = new FileReader();
+
+    reader.onloadend = () => {
+      this.setState({
+        imagePreviewUrl: reader.result,
+      });
+    };
+
+    reader.readAsDataURL(event.target.files[0]);
+  };
+  submit = () => {
+    var fd = new FormData();
+
+    fd.append("file", this.state.selectedFile);
+
+    var request = new XMLHttpRequest();
+
+    request.onreadystatechange = function () {
+      if (this.readyState === 4 && this.status === 200) {
+        alert("Uploaded!");
+      }
+    };
+    request.open("POST", "", true);
+    request.send(fd);
+  };
+
   handleInput = (evt) => this.setState({ [evt.target.name]: evt.target.value });
   handleSubmit = async (evt) => {
     evt.preventDefault();

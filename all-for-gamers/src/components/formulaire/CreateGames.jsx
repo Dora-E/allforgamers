@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import axios from "axios";
+import { apiHandler } from "../../handler/handler";
+const handler = apiHandler();
 export default class CreateGames extends Component {
   state = {
     games: [],
@@ -9,7 +10,7 @@ export default class CreateGames extends Component {
   };
   submit = async (evt) => {
     evt.preventDefault();
-    await axios.post("http://localhost:8000/games", this.state);
+    await handler.post("/games/", this.state);
   };
   render() {
     return (
@@ -39,9 +40,7 @@ export default class CreateGames extends Component {
           name="url"
           id="url"
           placeholder="https://example.com"
-          pattern="https://.*"
           size="30"
-          required
         ></input>
 
         <label htmlFor="images" className="label">

@@ -28,22 +28,6 @@ router.get("/:id", async (req, res, next) => {
     next(err)
   }
 });
-router.get("/profile", protectRoute, (req, res) => {
-  res.render("profile", {
-    js: ["form-create-address"]
-  });
-});
-
-// router.get("/:id", async (req, res, next) => {
-//   try {
-//     const getFavById = await UserModel.findById(req.params.id)
-//       .populate("favoris");
-//     res.json(getFavById);
-//   } catch (err) {
-//     next(err)
-//   }
-
-// })
 
 router.post("/signup", async (req, res, next) => {
 

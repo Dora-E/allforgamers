@@ -8,7 +8,7 @@ const StyledBurger = styled.div`
   position: fixed;
   top: 15px;
   right: 20px;
-  z-index: 1;
+  z-index: 2;
   display: none;
   @media (max-width: 1068px) {
     display: flex;

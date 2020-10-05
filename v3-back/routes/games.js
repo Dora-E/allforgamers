@@ -33,6 +33,7 @@ router.post("/", async (req, res, next) => {
     try {
         const newGame = await GameModel.create(req.body);
         res.json(newGame)
+
     } catch (err) {
         next(err)
     }

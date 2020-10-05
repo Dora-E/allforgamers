@@ -91,16 +91,16 @@ export default class Profile extends Component {
               className="is-hidden"
               ref={this.fileInput} // la référence créé dans la classe est associée à cet input file
             />
-            <img
-              className="avatar"
-              src={this.context.currentUser.avatar}
-              alt=""
-            />
 
             <button className="btn">Update</button>
           </form>
+          <img
+            className="avatar"
+            src={this.context.currentUser.avatar}
+            alt=""
+          />
           <h3>Liste des favoris</h3>
-          <li>{this.context.currentUser.favoris}</li>
+          <li className="fav">{this.context.currentUser.favoris}</li>
         </div>
       )
     );

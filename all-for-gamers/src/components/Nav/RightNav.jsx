@@ -24,6 +24,7 @@ const Ul = styled.ul`
     right: 0;
     height: 100vh;
     width: 300px;
+    z-index: 1;
     padding-top: 3.5rem;
     transition: transform 0.3s ease-in-out;
     li {
@@ -57,28 +58,35 @@ const RightNav = ({ open }) => {
       <li>
         {AuthContextValue.isSignedIn && (
           <NavLink className="navLi" to="/profile">
-            {" "}
-            Profile{" "}
+            Profile
           </NavLink>
         )}
       </li>
 
       <li>{AuthContextValue.isAdmin && <ButtonDashboard />}</li>
       <li>
-        {" "}
-        <NavLink className="navLi" to="/signup">
-          {" "}
-          Inscription{" "}
-        </NavLink>
+        {AuthContextValue.signout && (
+          <NavLink className="navLi" to="/signup">
+            {" "}
+            Inscription{" "}
+          </NavLink>
+        )}
       </li>
       <li>
-        {" "}
-        <NavLink className="navLi" to="/login">
-          {" "}
-          <FontAwesomeIcon icon={faUser} />{" "}
-        </NavLink>
+        {AuthContextValue.signout && (
+          <NavLink className="navLi" to="/login">
+            {" "}
+            <FontAwesomeIcon icon={faUser} />{" "}
+          </NavLink>
+        )}
       </li>
-      <li>{AuthContextValue.isSignedIn && <Signout />}</li>
+      <li>
+        {AuthContextValue.isSignedIn && (
+          <NavLink to="/">
+            <Signout />
+          </NavLink>
+        )}
+      </li>
     </Ul>
   );
 };

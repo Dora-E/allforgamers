@@ -76,16 +76,14 @@ body {
     background: dodgerblue;
 }
 
-/* .form.samples.kit #instruments {
-    justify-content: flex-start;
-} */
+
 
 .form {
     display: flex;
     flex-direction: column;
     max-width: 540px;
     margin-bottom: 20px;
-    position: relative;
+
 }
 
 @media (max-width: 450px) {
@@ -110,9 +108,7 @@ button {
     margin-bottom: 15px;
 }
 
-/* .form .row.justify-start {
-    justify-content: start;
-} */
+
 
 .form .label {
     cursor: pointer;

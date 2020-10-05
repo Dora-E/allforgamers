@@ -1,25 +1,25 @@
 import React, { Component } from "react";
-import axios from "axios";
+
 import moment from "moment";
 import Favoris from "./Favoris";
+import ReactPlayer from "react-player";
+import { apiHandler } from "../../handler/handler";
 
-// import { useLocation } from "react-router-dom";
-// import { Player } from "video-react";
-// import Video from "react-native-video";
+const handler = apiHandler();
+
 export default class Games extends Component {
   state = {
     game: null,
     commentaires: "",
   };
   // static contextType = AuthContext;
-  // commentaireInput = React.createRef();
+  commentaireInput = React.createRef();
   async componentDidMount() {
     // const route = useLocation();
     console.log(this.props.match.params.id);
     try {
-      const game = await axios.get(
-        "http://localhost:8000/games/" + this.props.match.params.id
-      );
+      // recup les jeu dans le handler qui a comme url celle du back end http://localhost:8000
+      const game = await handler.get("/games/" + this.props.match.params.id);
       console.log(game);
       this.setState({ game: game.data });
     } catch (err) {
@@ -31,18 +31,24 @@ export default class Games extends Component {
   //   evt.preventDefault();
   //   const { commentaires } = this.state;
   //   console.log(commentaires);
-  //   const comments = this.commentaireInput.current.files[0];
+  //   const comments = this.commentaireInput.current;
   //   const fd = new FormData();
   //   fd.append("commentaires", commentaires);
   //   this.context.signin(fd, () => {
   //     // pousse les donnée dans signin de authprovider
-  //     this.props.history.push("/isSignedIn");
+  //     this.props.history.push("/games");
   //   });
   // };
 
+  // handleChange = (event) => {
+  //   this.setState({ [event.target.name]: event.target.value });
+  // };
+
   render() {
-    const { game: g } = this.state;
     //recup jeu et affiche data
+    const { game: g } = this.state;
+
+    const commentaire = this.state.commentaire;
 
     return (
       g && (
@@ -52,10 +58,19 @@ export default class Games extends Component {
           <p className="desc">{g.description}</p>
           <ul className="games-infos">
             <li> Editeur {g.creator}</li>
-            {/* <li>{game.date}</li> */}
+            {/* le format de la date viens de moment .js jour mois année  */}
             <li> Date de sortie :{moment(g.date).format("DD MMM YYYY")}</li>
             <li> Categorie :{g.categories}</li>
-            <li> Video :{g.video}</li>
+            <div className="video">
+              <ReactPlayer
+                url={g.video}
+                // config de video venant de youtube
+                config={{ youtube: { playerVars: { showinfo: 1 } } }}
+                controls
+                width="1000px"
+                height="540px"
+              />
+            </div>
             <li>
               <Favoris />
             </li>
@@ -64,11 +79,15 @@ export default class Games extends Component {
                 <img className="imgGames" key={i} src={image} alt="" />
               ))}
             </div>
-            {/* <Video source={game.video} /> */}
-            {/* <Player>
-            <source src={game.video} />
-          </Player> */}
           </ul>
+          {/* <form onSubmit={this.handleSubmit}>
+            <label>
+              Commentaire:
+              <textarea value={this.state.value} onChange={this.handleChange} />
+            </label>
+            <input type="submit" value="Envoyer" />
+          </form>
+          <div>{commentaire}</div> */}
         </div>
       )
     );

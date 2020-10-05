@@ -1,27 +1,33 @@
 import React, { Component } from "react";
-// import AuthContext from "../auth/AuthContext";
+import AuthContext from "../auth/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
-// import { apiHandler } from "../../handler/handler";
+import { apiHandler } from "../../handler/handler";
 //\faHeart \faThumbsDow \faThumbsUp
-// const handler = apiHandler();
+const handler = apiHandler();
 
 export default class Favoris extends Component {
-  // state = {
-  //  favoris:"",
-  // };
-  // static contextType = AuthContext;
-  constructor(props) {
-    super(props);
-    this.state = { isToggleOn: true };
-    this.handleClick = this.handleClick.bind(this);
+  state = {
+    users: [],
+  };
+  static contextType = AuthContext;
+  async componentDidMount() {
+    this.getFav();
+    this.handleClick();
   }
-  handleClick() {
-    this.setState((state) => ({
-      isToggleOn: !state.isToggleOn,
-    }));
-  }
+  getFav = async () => {};
+  handleClick = async () => {
+    // this.setState((state) => ({
+    //   isToggleOn: !state.isToggleOn,
+    // }));
+    try {
+      const fav = await handler.get("/users/:id/favoris");
+      this.setState({ favs: fav.data });
+    } catch (err) {
+      console.error(err);
+    }
+  };
   render() {
     return (
       <FontAwesomeIcon
@@ -30,6 +36,7 @@ export default class Favoris extends Component {
         size="3x"
         icon={faHeart}
         onClick={this.handleClick}
+        cursor="pointer"
       />
     );
   }
