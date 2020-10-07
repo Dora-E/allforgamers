@@ -16,6 +16,7 @@ import Profile from "./components/pages/Profile";
 import Dashboard from "./components/pages/Dashboard";
 import Signup from "./components/pages/Signup";
 import Games from "./components/jeux/Games";
+import Commentaire from "./components/jeux/Commentaire";
 // import Signout from "./components/pages/Signout";
 function App() {
   return (
@@ -31,7 +32,7 @@ function App() {
         <Route path="/2021" component={Annee1} />
         <Route path="/login" component={Login} />
         <Route path="/contact" component={Contact} />
-
+        <Route path="/commentaires" component={Commentaire} />
         <Route path="/signup" component={Signup} />
         <Route path="/profile" component={Profile} />
         <Route path="/games/:id" component={Games} />

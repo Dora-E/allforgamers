@@ -8,7 +8,15 @@ const handler = apiHandler();
 export default class Dashboard extends Component {
   state = {
     users: [],
-    games: [],
+    games: [
+      // (name = ""),
+      // (creator = ""),
+      // (date = Date),
+      // (description = ""),
+      // (video = ""),
+      // (image = ""),
+      // (categories = ""),
+    ],
   };
 
   static contextType = AuthContext;
@@ -54,6 +62,28 @@ export default class Dashboard extends Component {
       console.error(err);
     }
   };
+  // updateGame =async(evt)=> {
+  //   evt.preventDefault();
+  //   const {name,creator,date,description,video,image,categories}=this.state;
+  // const fd = new FormData();
+  //   try{
+  //     const games = await handler.patch(
+  //       "/games/" + this.context.currentGame._id,
+  //       {
+  //         fd.append("name",name || this.context.currentGame.name),
+  //   fd.append("creator",creator || this.context.currentGame.creator),
+  //   fd.append("date" , date || this.context.currentGame.date),
+  //   fd.append("description", description || this.context.currentGame.description),
+  //   fd.append("video" , video || this.context.currentGame.video),
+  //   fd.append("image" , image || this.context.currentGame.image),
+  //   fd.append("categories" , categories || this.context.currentGame.categories)
+  //       }
+  //     )
+  //   catch(err) {
+  //     console.error(err);
+  //   }
+
+  // }
 
   render() {
     return (

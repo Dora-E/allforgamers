@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import Commentaire from "./Commentaire";
 import moment from "moment";
 import Favoris from "./Favoris";
 import ReactPlayer from "react-player";
@@ -13,7 +13,7 @@ export default class Games extends Component {
     commentaires: "",
   };
   // static contextType = AuthContext;
-  commentaireInput = React.createRef();
+
   async componentDidMount() {
     // const route = useLocation();
     console.log(this.props.match.params.id);
@@ -27,28 +27,9 @@ export default class Games extends Component {
     }
   }
 
-  // handleSubmit = async (evt) => {
-  //   evt.preventDefault();
-  //   const { commentaires } = this.state;
-  //   console.log(commentaires);
-  //   const comments = this.commentaireInput.current;
-  //   const fd = new FormData();
-  //   fd.append("commentaires", commentaires);
-  //   this.context.signin(fd, () => {
-  //     // pousse les donnée dans signin de authprovider
-  //     this.props.history.push("/games");
-  //   });
-  // };
-
-  // handleChange = (event) => {
-  //   this.setState({ [event.target.name]: event.target.value });
-  // };
-
   render() {
     //recup jeu et affiche data
     const { game: g } = this.state;
-
-    const commentaire = this.state.commentaire;
 
     return (
       g && (
@@ -80,14 +61,9 @@ export default class Games extends Component {
               ))}
             </div>
           </ul>
-          {/* <form onSubmit={this.handleSubmit}>
-            <label>
-              Commentaire:
-              <textarea value={this.state.value} onChange={this.handleChange} />
-            </label>
-            <input type="submit" value="Envoyer" />
-          </form>
-          <div>{commentaire}</div> */}
+          <div>
+            <Commentaire />
+          </div>
         </div>
       )
     );
