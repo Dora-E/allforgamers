@@ -5,36 +5,39 @@ import AuthContext from "../auth/AuthContext";
 const handler = apiHandler();
 export default class Commentaire extends Component {
   state = {
-    commentaire: "",
+    message: null,
+    game: this.props.game,
   };
   static contextType = AuthContext;
-  commentaire = React.createRef();
+
   handleSubmit = async (evt) => {
     evt.preventDefault();
     //state de commentaire est null au depart
-    const { commentaires } = this.state;
-    console.log(commentaires);
-    // prend les commentaire de jeux en question grâce au forma data envoie en bdd
-    const comments = this.state.current;
-    const fd = new FormData();
-    fd.append("commentaires", comments);
+
+    console.log(this.context.currentUser);
+    //recupere data du model commentaire le to le from et le message poster
+    const commentaire = {
+      to: this.state.game._id,
+      from: this.context.currentUser._id,
+      message: this.state.message,
+    };
+    await handler.post("/commentaires/", commentaire);
+    this.props.getCommentaires();
   };
 
   handleChange = (event) => {
-    this.setState({ [event.target.name]: event.target.value });
+    this.setState({ message: event.target.value });
   };
   render() {
-    const commentaire = this.state.commentaire;
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} onChange={this.handleChange}>
           <label>
             Commentaires:
-            <textarea value={this.state.value} onChange={this.handleChange} />
+            <textarea value={this.state.value} name="message" />
           </label>
           <input type="submit" value="Envoyer" />
         </form>
-        <div>{commentaire}</div>
       </div>
     );
   }

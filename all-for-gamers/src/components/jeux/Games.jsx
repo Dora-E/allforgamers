@@ -4,28 +4,44 @@ import moment from "moment";
 import Favoris from "./Favoris";
 import ReactPlayer from "react-player";
 import { apiHandler } from "../../handler/handler";
+import AfficherCommentaire from "./AfficherCommentaire";
 
 const handler = apiHandler();
 
 export default class Games extends Component {
   state = {
     game: null,
-    commentaires: "",
+    commentaires: [],
   };
   // static contextType = AuthContext;
 
   async componentDidMount() {
+    //intéragir avec des data du server-back,
     // const route = useLocation();
     console.log(this.props.match.params.id);
     try {
       // recup les jeu dans le handler qui a comme url celle du back end http://localhost:8000
       const game = await handler.get("/games/" + this.props.match.params.id);
-      console.log(game);
+      // const commentaires = await handler.get("/commentaires/");
+      this.getCommentaires();
+      // console.log(game);
       this.setState({ game: game.data });
     } catch (err) {
       console.error(err);
     }
   }
+  // function qui recupere les commentaire poste et les filtre en fonction de l'id du jeux
+  getCommentaires = async () => {
+    const commentaires = await handler.get("/commentaires");
+    console.log("COMMENTAIRES GAMES : ", commentaires);
+    const filteredComm = commentaires.data.filter((commentaire) => {
+      if (commentaire.to._id == this.state.game._id) {
+        return commentaire;
+      }
+    });
+    this.setState({ commentaires: filteredComm });
+    // return filteredComm;
+  };
 
   render() {
     //recup jeu et affiche data
@@ -62,7 +78,11 @@ export default class Games extends Component {
             </div>
           </ul>
           <div>
-            <Commentaire />
+            <AfficherCommentaire commentaires={this.state.commentaires} />
+            <Commentaire
+              game={this.state.game}
+              getCommentaires={this.getCommentaires}
+            />
           </div>
         </div>
       )

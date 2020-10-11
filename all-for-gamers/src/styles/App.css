@@ -6,15 +6,16 @@
 
 body {
   background: RGB(255, 230, 185);
+  width: 100%;
 }
 
 main {
   background: black;
   justify-content: space-between;
   align-items: center;
-  min-width: 8vw;
+  /* min-width: 8vw; */
   display: flex;
-  width: 100%;
+
   overflow-x: hidden;
 }
 
@@ -287,6 +288,11 @@ footer {
     justify-content: center;
   }
 
+  .video {
+    width: 100%;
+    height: 100%;
+  }
+
   .fav {
     color: RGB(255, 230, 185);
   }
@@ -319,7 +325,7 @@ footer {
   }
 
   .table {
-    width: 50%;
+    width: 100%;
   }
 
 
@@ -379,50 +385,3 @@ footer {
           /*regles les image dans leur contenant pour que images aient même taille*/
   /*} */
 }
-
-/* <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="index.css" />
-    <style>
-      #wrap {
-    
-
-      #header {
-        background: green;
-        grid-column: 1 / 9;
-      }
-      #sidebar {
-        background: dodgerblue;
-        grid-column: 1 / 3;
-      }
-      #content {
-        background: yellow;
-        grid-column: 3 / 9;
-      }
-      #footer {
-        background: red;
-        grid-column: 1 / 9;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="wrap">
-      <header id="header">
-        header
-      </header>
-      <aside id="sidebar">
-        sidebar
-      </aside>
-      <main id="content">
-        main
-      </main>
-      <footer id="footer">
-        footer
-      </footer>
-    </div>
-  </body>
-</html> */

@@ -23,7 +23,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <Logo />
-        <h1 className="title">All For Gamer</h1>
+
         <Navbar />
       </header>{" "}
       <Switch>

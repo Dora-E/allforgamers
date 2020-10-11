@@ -2,8 +2,12 @@ const router = new require("express").Router();
 const CommentaireModel = require("../models/Commentaire")
 router.get("/", async (req, res, next) => {
     try {
-        const users = await CommentaireModel.find();
-        res.json(users);
+        const commentaires = await CommentaireModel.find()
+            .populate("to")
+            .populate("from");
+
+        // console.log(commentaires)
+        res.json(commentaires);
     } catch (err) {
         next(err);
     }
